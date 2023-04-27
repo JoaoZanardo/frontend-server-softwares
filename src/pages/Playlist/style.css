@@ -1,0 +1,130 @@
+/* Estilos básicos */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  color: #04aa6d;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 3rem;
+}
+
+/* Estilos das playlists */
+.playlist-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.playlist {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: #f2f2f2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.playlist .playlist-props {
+  cursor: pointer;
+}
+
+.playlist h2 {
+  color: #04aa6d;
+  margin: 0;
+  font-size: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.playlist p {
+  font-weight: bold;
+  color: #666;
+  margin: 0.8rem 0;
+  font-size: 1.3rem;
+}
+
+.playlist a {
+  text-decoration: none;
+  color: black;
+}
+
+.playlist ul {
+  margin: 0.5rem 0 0;
+  font-size: 1.2rem;
+  list-style: none;
+  padding: 0;
+}
+
+.playlist li {
+  margin: 0.5rem 0;
+}
+
+.playlist-actions {
+  margin-top: 1rem;
+}
+
+.playlist-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.playlist-actions .delete-btn {
+  margin-left: 10px;
+  background-color: #e74c3c;
+}
+
+.playlist-actions .edit-btn {
+  background-color: #3498db;
+}
+
+.playlist-actions .delete-btn:hover,
+.playlist-actions .edit-btn:hover {
+  opacity: 0.8;
+}
+
+.playlist-actions .delete-btn-container {
+  position: absolute;
+  right: 0;
+}
+
+.playlist-actions .edit-btn-container {
+  position: absolute;
+  right: 90px;
+}
+
+
+/* Responsividade */
+@media screen and (max-width: 900px) {
+  .playlist {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .playlist {
+    width: 100%;
+  }
+}

@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+}
+
+.individual-playlist {
+  width: 80%;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #f2f2f2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.individual-playlist-playlist-name {
+  color: #04aa6d;
+  margin: 0;
+  font-size: 2.7rem;
+  text-align: center;
+}
+
+.individual-playlist-playlist-genre {
+  font-weight: bold;
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  color: #666;
+  text-align: center;
+}
+
+.individual-playlist-playlist-musics {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  list-style: none;
+  padding: 0;
+}
+
+.individual-playlist-playlist-musics li {
+  margin: 1rem 0;
+}
+
+.individual-playlist-playlist-description {
+  margin-top: 2rem;
+}
+
+.individual-playlist-playlist-description h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.individual-playlist-playlist-description p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.individual-playlist-music-singer {
+  font-weight: bold;
+}
+
+.individual-playlist-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.individual-playlist-button-delete{
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.individual-playlist-button-edit {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.individual-playlist-button-delete:hover,
+.individual-playlist-button-edit:hover {
+  opacity: 0.8;
+}
