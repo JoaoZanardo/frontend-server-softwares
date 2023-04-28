@@ -1,17 +1,5 @@
-/* SignUp Page Styles */
-
-/* Base Styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-}
-
-h1 {
+.form h1 {
+  font-size: 2.5rem;
   text-align: center;
   margin: 2rem 0;
 }
@@ -63,13 +51,6 @@ h1 {
   background-color: #3e8e41;
 }
 
-.form h1 {
-  text-align: center;
-  margin-top: 20px;
-  color: #04aa6d;
-  font-size: 24px;
-}
-
 .form h2 {
   text-align: center;
   margin-top: 20px;
@@ -79,6 +60,12 @@ h1 {
 
 .form p {
   margin-top: 30px;
+  font-size: 17px
+}
+
+.form a {
+  margin-top: 30px;
+  font-size: 17px
 }
 
 /* Estilo para dispositivos móveis */
@@ -125,6 +112,6 @@ h1 {
     text-align: center;
     margin-top: 20px;
     color: #04aa6d;
-    font-size: 18px;
+    font-size: 1.5rem;
   }
 }

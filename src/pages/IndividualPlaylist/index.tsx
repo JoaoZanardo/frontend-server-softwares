@@ -27,9 +27,9 @@ export const IndividualPlaylistPage = () => {
     return (
         <>
             <div className="individual-playlist">
-                <h1 className="individual-playlist-playlist-name">{auth.playlist?.name}</h1>
-                <p className="individual-playlist-playlist-genre">{auth.playlist?.genre}</p>
-                <ul className="individual-playlist-playlist-musics">
+                <h1>{auth.playlist?.name}</h1>
+                <p className="individual-playlist-genre">{auth.playlist?.genre}</p>
+                <ul className="individual-playlist-musics">
                     {auth.playlist?.musics.map((music, index) => (
                         <li key={index}>{music}</li>
                     ))}

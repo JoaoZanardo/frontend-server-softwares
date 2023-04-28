@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/Auth";
 import { InputChangeEvent } from "../../types";
 import { loginValidator } from "./helpers/login-validator";
-import './style.css';
 import { Link } from "react-router-dom";
 
 export const Login = (): ReactElement => {
@@ -36,14 +35,14 @@ export const Login = (): ReactElement => {
             <div className="form">
                 <h1>Login</h1>
 
-                <input type="text" name="email" placeholder="Type your email" 
+                <input type="text" name="email" placeholder="Seu email" 
                 value={email} onChange={handleEmailInput}/>
 
-                <input type="password" name="password" placeholder="Type your password" 
+                <input type="password" name="password" placeholder="Sua senha" 
                 value={password} onChange={handlePasswordInput}/>
 
                 <button onClick={handlerClick}>SEND</button>
-                <p>Don't have an account? <Link to={'/signup'}>Create</Link></p>
+                <p>Novo por aqui? <Link to={'/signup'}>Crie uma conta</Link></p>
                 <h2>{result}</h2>
             </div>
         </div>

@@ -14,48 +14,23 @@ body {
   border-radius: 4px;
 }
 
-.individual-playlist-playlist-name {
-  color: #04aa6d;
-  margin: 0;
-  font-size: 2.7rem;
-  text-align: center;
-}
-
-.individual-playlist-playlist-genre {
+.individual-playlist-genre {
   font-weight: bold;
-  margin-top: 1rem;
-  font-size: 1.4rem;
+  margin-top: 1.2rem;
+  font-size: 1.8rem;
   color: #666;
   text-align: center;
 }
 
-.individual-playlist-playlist-musics {
+.individual-playlist-musics {
   margin-top: 1rem;
   font-size: 1.2rem;
   list-style: none;
   padding: 0;
 }
 
-.individual-playlist-playlist-musics li {
-  margin: 1rem 0;
-}
-
-.individual-playlist-playlist-description {
-  margin-top: 2rem;
-}
-
-.individual-playlist-playlist-description h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.individual-playlist-playlist-description p {
-  font-size: 1.2rem;
-  line-height: 1.5;
-}
-
-.individual-playlist-music-singer {
-  font-weight: bold;
+.individual-playlist-musics li {
+  margin: 1.2rem 0;
 }
 
 .individual-playlist-buttons {

@@ -58,6 +58,28 @@ class Api {
             };       
         }
     }
+
+    async getUser(token: string): Promise<HttpResponse> {
+        try {
+            const res = await this.instace.get('users/me', {
+                headers: {
+                    Authorization: token
+                }
+            });
+
+            return {
+                data: res.data,
+                status: res.status
+            }
+        } catch (error) {
+            const response = (<any>error).response;
+            console.log('ERRO', {response})
+            return {
+                status: response?.status || 500,
+                data: response.data
+            };  
+        }
+    }
     
     async getAllPlaylistsFromUser(token: string): Promise<HttpResponse> {
         try {
@@ -138,7 +160,6 @@ class Api {
             }
         } catch (error) {
             const response = (<any>error).response;
-            console.log('ERRO', {response})
             return {
                 status: response?.status || 500,
                 data: response.data

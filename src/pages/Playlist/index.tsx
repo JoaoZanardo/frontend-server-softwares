@@ -44,7 +44,7 @@ export const PlaylistsPage = () => {
 
     return (
         <>
-            <h1>Playlists</h1>
+            <h1 className='playlists-title'>Playlists</h1>
             <div className="playlist-container">
                 {playlists.map((playlist, index) => (
                 <div className="playlist" key={index}>

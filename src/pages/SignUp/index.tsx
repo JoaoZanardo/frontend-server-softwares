@@ -50,19 +50,19 @@ const SignUp = (): ReactElement => {
             <div className="form">
                 <h1>SignUp</h1>
 
-                <input type="text" name="name" placeholder="Type your name" 
+                <input type="text" name="name" placeholder="Seu nome" 
                 value={name} onChange={handleNameInput}/>
 
-                <input type="text" name="email" placeholder="Type your email" 
+                <input type="text" name="email" placeholder="Seu email" 
                 value={email} onChange={handleEmailInput}/>
 
-                <input type="password" name="password" placeholder="Type your password" 
+                <input type="password" name="password" placeholder="Sua senha" 
                 value={password} onChange={handlePasswordInput}/>
 
-                <input type="password" name="passwordConfirmation" placeholder="Confirm your password" 
+                <input type="password" name="passwordConfirmation" placeholder="Confirme sua senha" 
                 value={passwordConfirmation} onChange={handlePasswordConfirmationInput}/>
                 <button onClick={handlerClick}>SEND</button>
-                <p>Already hava an account? <Link to={'/login'}>Login</Link></p>
+                <p>Já tem uma conta? <Link to={'/login'}>Entrar</Link></p>
                 <h2>{result}</h2>
             </div>
         </div>

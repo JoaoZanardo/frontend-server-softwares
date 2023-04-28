@@ -1,13 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import Api from "../../hooks/useApi";
 import { LoginProps } from "../../types";
 import { UserDto } from "../../types/dto";
 import { Playlist } from "../../types/playlist";
+import { LocalStorage } from "../../helpers/local-storage";
+import { env } from "../../config/env";
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
-    const [token, setToken] = useState<string>('');
     const [playlist, setPlaylist] = useState<Playlist | null>(null);
+    const [token, setToken] = useState<string>('');
+
+    const localStorage = new LocalStorage();
+    const { localStorageKeyItem } = env
+    
+    useEffect(() => {
+        console.log('AUTH CONTEXT');
+        const validateToken = async () => {
+            const dataStorage = localStorage.getItem(localStorageKeyItem);
+            if (dataStorage) {
+                const { status } = await Api.getUser(JSON.parse(dataStorage).value);
+                if (status !== 200) return logout();
+                setUserToken(localStorageKeyItem, JSON.parse(dataStorage).value);
+                const timeout = setTimeout(() => {
+                    logout();
+                }, 1000 * 60 * 60);
+                return () => clearTimeout(timeout);
+            }
+        }
+        validateToken();
+    }, [token]);
 
     const setPlaylistInfo = (playlist: Playlist): boolean => {
         const { name, genre, musics } = playlist;
@@ -17,45 +39,29 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
 
     const signup = async (body: UserDto): Promise<boolean> => {
-        const response = await Api.signup({ ...body });
-        if (response.status !== 200) {
-            // setError(response.data.name);
-            return false;
-        }
-        setToken(response.data.accessToken);
+        const {data, status} = await Api.signup({ ...body });
+        if (status !== 200) return false;
+        setUserToken(localStorageKeyItem, data.accessToken, 1000 * 60 * 1);
         return true;
     }
 
     const login = async (body: LoginProps): Promise<boolean> => {
-        const response = await Api.login({ ...body });
-        if (response.status !== 200) {
-            return false;
-        }
-        setToken(response.data.accessToken);
-        console.log({token})
-        setLocalStorage('authToken', token, 1000 * 60 * 1);
+        const {status, data} = await Api.login({ ...body });
+        if (status !== 200) return false;
+        setUserToken(localStorageKeyItem, data.accessToken, 1000 * 60);
         return true;
     }
 
     const logout = (): void => {
-        deleteLocalStorage('authToken');
-        return setToken('');
+        setToken('');
+        localStorage.deleteItem(localStorageKeyItem);
     }
 
-    const setLocalStorage = (key: string, token: string, ttl: number = 1000 * 60 * 60) => {
-        const now = new Date()
-
-        const item = {
-            value: token,
-            expiry: now.getTime() + ttl,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
+    const setUserToken = (key: string, item: string, ttl?: number) => {
+        setToken(item);
+        localStorage.setItem(key, item, ttl);
     }
 
-    const deleteLocalStorage = (key: string) => {
-        localStorage.removeItem(key);
-    }
-    
    return (
     <AuthContext.Provider value={{ token, playlist, setPlaylistInfo, login, signup, logout }}>
         {children}

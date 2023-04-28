@@ -4,6 +4,7 @@ import { InputChangeEvent } from "../../types";
 import Api from "../../hooks/useApi";
 import { AuthContext } from "../../contexts/Auth";
 import { useNavigate } from "react-router-dom";
+import { Playlist } from "../../types/playlist";
 
 export const NewPlaylistPage = (): ReactElement => {
     const [name, setName] = useState<string>('');
@@ -29,7 +30,9 @@ export const NewPlaylistPage = (): ReactElement => {
             return;
         }
         resetStatesValues();
-        return navigate('/playlists');
+        const success = auth.setPlaylistInfo(data.playlist as Playlist);
+        if (!success) return;
+        return navigate('/playlists/one');
     }
     
     const resetStatesValues = () => {
