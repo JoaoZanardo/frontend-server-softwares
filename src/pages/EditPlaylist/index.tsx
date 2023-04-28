@@ -7,18 +7,24 @@ import { useNavigate } from "react-router-dom";
 
 export const EditPlaylistPage = (): ReactElement => {
     const auth = useContext(AuthContext);
-    const playlist = auth.playlist!;
+    const playlist = auth.playlist ?? { id: '', name: '', genre: '', musics: [] };
 
     const navigate = useNavigate();
 
-    const [name, setName] = useState<string>(auth.playlist!.name);
-    const [genre, setGenre] = useState<string>(auth.playlist!.genre);
+    const [name, setName] = useState<string>(playlist.name);
+    const [genre, setGenre] = useState<string>(playlist.genre);
     const [music, setMusic] = useState<string>('');
-    const [musics, setMusics] = useState<string[]>(auth.playlist!.musics);
+    const [musics, setMusics] = useState<string[]>(playlist.musics);
     const [editError, setEditError] = useState<string>('');
 
     useEffect(() => {
-        if (!playlist) return;
+        let success = true;
+        if (!playlist) success = false;
+        Object.values(playlist).every(item => {
+            if (!item) success = false;
+        });
+
+        if (!success) return navigate('/playlists');
     }, []);
 
     const handleEditPlaylist = async () => {
@@ -27,7 +33,7 @@ export const EditPlaylistPage = (): ReactElement => {
             setMusics(musics);
         }
 
-        const {status, data} = await Api.editPlaylist(auth.playlist!.id, {
+        const {status, data} = await Api.editPlaylist(playlist.id, {
             name, genre, musics
         }, auth.token);
         if (status !== 200 ) {
