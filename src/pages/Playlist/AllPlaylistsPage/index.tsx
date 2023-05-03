@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import './style.css';
-import { AuthContext } from '../../contexts/Auth';
-import Api from '../../hooks/useApi';
+import { AuthContext } from '../../../contexts/Auth';
+import Api from '../../../hooks/useApi';
 import { useNavigate } from 'react-router-dom';
-import { Playlist } from '../../types/playlist';
+import { Playlist } from '../../../types';
 
 export const PlaylistsPage = () => {
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
@@ -45,6 +45,9 @@ export const PlaylistsPage = () => {
     return (
         <>
             <h1 className='playlists-title'>Playlists</h1>
+            {!playlists.length && (
+                <p>NO MUSICS</p>
+            )}
             <div className="playlist-container">
                 {playlists.map((playlist, index) => (
                 <div className="playlist" key={index}>

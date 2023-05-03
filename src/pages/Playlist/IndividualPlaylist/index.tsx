@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { AuthContext } from '../../contexts/Auth';
-import Api from '../../hooks/useApi';
+import { AuthContext } from '../../../contexts/Auth';
+import Api from '../../../hooks/useApi';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 

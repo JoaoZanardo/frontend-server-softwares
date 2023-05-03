@@ -8,7 +8,6 @@ export const Header = ({ children }: { children: JSX.Element }) => {
 
     const handleHamburguer = () => {
         setIsOpen(!isOpen);
-        console.log({isOpen});
     }
 
     const auth = useContext(AuthContext);
@@ -21,7 +20,7 @@ export const Header = ({ children }: { children: JSX.Element }) => {
         <>
             <nav className="navbar">
                 <div className="navbar-container">
-                <Link to={'/'} className="navbar-brand"><img src="https://www.serverinfo.com.br/templates/img/logo-server-software.svg"/></Link>
+                <Link to={'/'} className="navbar-brand"><img src="../../src/assets/logo.png"/></Link>
                 <div className="navbar-toggle" id="navbar-toggle" onClick={handleHamburguer}>
                     <span className="bar"></span>
                     <span className="bar"></span>
@@ -36,6 +35,8 @@ export const Header = ({ children }: { children: JSX.Element }) => {
                     onClick={handleHamburguer}><Link to={'/playlists/add'}>Create playlist</Link></li>}
                     {!auth.token && <li className="navbar-item"
                     onClick={handleHamburguer}><Link to={'/login'}>Login</Link></li>}
+                    {!!auth.token && <li className="navbar-item"
+                    onClick={handleHamburguer}><Link to={'/'}>{auth.user!.name}</Link></li>}
                     {!!auth.token && <li className="navbar-item"
                     onClick={handleHamburguer}><Link to={'/'} onClick={handleLogout}>Logout</Link></li>}
                 </ul>

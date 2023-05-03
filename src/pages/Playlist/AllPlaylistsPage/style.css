@@ -7,8 +7,8 @@
 h1 {
   color: #04aa6d;
   text-align: center;
-  margin-top: 2rem;
   font-size: 3.5rem;
+  margin: 2rem 0;
 }
 
 /* Estilos das playlists */
@@ -16,17 +16,16 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 2rem;
 }
 
 .playlist {
+  background-color: rgb(250, 250, 250);
   display: flex;
   flex-direction: column;
   width: 25%;
   margin: 1rem;
   padding: 1rem;
-  background-color: #f2f2f2;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
@@ -111,9 +110,9 @@ h1 {
   }
 }
 
-@media screen and (max-width: 480px) {
+@media only screen and (max-width: 550) {
   h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .playlist {

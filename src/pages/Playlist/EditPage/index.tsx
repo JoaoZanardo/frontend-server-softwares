@@ -1,38 +1,55 @@
-import { ReactElement, useContext, useState } from "react";
+import { ReactElement, useContext, useEffect, useState } from "react";
 import './style.css';
-import { InputChangeEvent } from "../../types";
-import Api from "../../hooks/useApi";
-import { AuthContext } from "../../contexts/Auth";
+import { InputChangeEvent, PlaylistInput } from "../../../types";
+import Api from "../../../hooks/useApi";
+import { AuthContext } from "../../../contexts/Auth";
 import { useNavigate } from "react-router-dom";
-import { Playlist } from "../../types/playlist";
+import { validatePlaylistFields } from "../../../helpers";
+import { InvalidInputError } from "../../../types/errors";
 
-export const NewPlaylistPage = (): ReactElement => {
-    const [name, setName] = useState<string>('');
-    const [genre, setGenre] = useState<string>('');
-    const [music, setMusic] = useState<string>('');
-    const [musics, setMusics] = useState<string[]>([]);
-    const [createError, setCreateError] = useState<string>('');
-
+export const EditPlaylistPage = (): ReactElement => {
     const auth = useContext(AuthContext);
-    const navigate = useNavigate();;
+    const playlist = auth.playlist ?? { id: '', name: '', genre: '', musics: [] };
 
-    const handleCreatePlaylist = async () => {
+    const navigate = useNavigate();
+
+    const [name, setName] = useState<string>(playlist.name);
+    const [genre, setGenre] = useState<string>(playlist.genre);
+    const [music, setMusic] = useState<string>('');
+    const [musics, setMusics] = useState<string[]>(playlist.musics);
+    const [error, setError] = useState<InvalidInputError | null>(null);
+
+    useEffect(() => {
+        let success = true;
+        if (!playlist) success = false;
+        Object.values(playlist).every(item => {
+            if (!item) success = false;
+        });
+
+        if (!success) return navigate('/playlists');
+    }, []);
+
+    const handleEditPlaylist = async () => {
         if (!musics.length && name && genre && music) {
             musics.push(music);
             setMusics(musics);
         }
 
-        const {status, data} = await Api.createPlaylist({
+        const fieldsError = validatePlaylistFields({ music, genre, musics, name });
+        if (fieldsError) {
+            setError(fieldsError);
+            return
+        }
+
+        const {status, data} = await Api.editPlaylist(playlist.id, {
             name, genre, musics
         }, auth.token);
-        if (status !== 201 ) {
-            setCreateError(data.name);
+        if (status !== 200 ) {
+            setError(data.name);
             return;
         }
         resetStatesValues();
-        const success = auth.setPlaylistInfo(data.playlist as Playlist);
-        if (!success) return;
-        return navigate('/playlists/one');
+        return navigate('/playlists');
     }
     
     const resetStatesValues = () => {
@@ -40,7 +57,7 @@ export const NewPlaylistPage = (): ReactElement => {
         setGenre('');
         setMusic('');
         setMusics([]);
-        setCreateError('');
+        setError(null);
     }
 
     const handleInputName = (event: InputChangeEvent) => {
@@ -67,20 +84,29 @@ export const NewPlaylistPage = (): ReactElement => {
 
     return (
         <>
-            <h1>Cadastro de Playlist</h1>
+            <h1>Editar Playlist</h1>
             <form onSubmit={(e) => e.preventDefault()}>
                 <label>Nome da Playlist:</label>
                 <input type="text" name="playlist-name" 
                 onChange={handleInputName} value={name}/>
+                {!!error && error.input === PlaylistInput.NAME && (
+                    <p className="error">{error.message}</p>
+                )}
 
                 <label >Gênero:</label>
                 <input type="text" name="playlist-genre"
                 onChange={handleInputGenre} value={genre}/>
+                {!!error && error.input === PlaylistInput.GENRE && (
+                    <p className="error">{error.message}</p>
+                )}
 
                 <div id="playlist-musics">
                     <label >Música:</label>
                     <input type="text" id="playlist-music-0" name="playlist-music[]"
                     onChange={handleInputMusic} value={music}/>
+                    {!!error && error.input === PlaylistInput.MUSIC && (
+                    <p className="error">{error.message}</p>
+                )}
                 </div>
 
 
@@ -101,10 +127,8 @@ export const NewPlaylistPage = (): ReactElement => {
                     {!!music.length && <button type="button" 
                     id="add-music" onClick={handleAddMusicButton}>Adicionar outra música</button>}
 
-                    <button className="submit" onClick={handleCreatePlaylist}>Salvar</button>
+                    <button className="submit" onClick={handleEditPlaylist}>Salvar</button>
                 </div>
-
-                <h2>{createError}</h2>
             </form>
         </>
     )

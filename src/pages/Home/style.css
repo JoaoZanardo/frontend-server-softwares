@@ -30,11 +30,6 @@ header {
   height: 80vh;
 }
 
-.hero h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
 .hero-buttons {
   display: flex;
   justify-content: space-between;
@@ -60,4 +55,11 @@ header {
 .hero-btn:hover {
   background-color: #f2f2f2;
   color: #04aa6d;
+}
+
+@media (min-width: 500) {
+  .hero h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
 }

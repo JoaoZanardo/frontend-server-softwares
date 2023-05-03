@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import './style.css';
 
-export const Home = (): ReactElement => {
+export const HomePage = (): ReactElement => {
     return (
         <div className="hero">
             <h1>Frontend da <a href='https://github.com/JoaoZanardo?tab=repositories' target='_blank'>api de playlists</a></h1>

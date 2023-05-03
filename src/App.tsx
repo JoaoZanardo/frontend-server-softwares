@@ -1,22 +1,22 @@
 import { Route, Routes } from 'react-router-dom';
-import SignUp from './pages/SignUp';
+import SignUp from './pages/Auth/SignUp';
 import NotFound  from './pages/NotFound';
-import { PlaylistsPage } from './pages/Playlist';
-import { RequireAuth } from './contexts/Auth/RequireAuth';
-import { Home } from './pages/Home';
-import { Login } from './pages/Login';
+import { PlaylistsPage } from './pages/Playlist/AllPlaylistsPage';
+import { RequireAuth } from './contexts/Auth';
+import { HomePage } from './pages/Home';
+import { LoginPage } from './pages/Auth/Login';
 import { Header } from './components/Header';
-import { NewPlaylistPage } from './pages/NewPlaylist';
-import { EditPlaylistPage } from './pages/EditPlaylist';
-import { IndividualPlaylistPage } from './pages/IndividualPlaylist';
+import { NewPlaylistPage } from './pages/Playlist/NewPlaylist';
+import { EditPlaylistPage } from './pages/Playlist/EditPage';
+import { IndividualPlaylistPage } from './pages/Playlist/IndividualPlaylist';
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Header><Home/></Header>} />
+        <Route path="/" element={<Header><HomePage/></Header>} />
         <Route path="/signup" element={<SignUp/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/login" element={<LoginPage/>} />
         <Route path="/playlists" element={
           <Header>
             <RequireAuth>
@@ -45,6 +45,7 @@ function App() {
             </RequireAuth>
           </Header>
         } />
+        {/* <Route path="/dashboard" element={} /> */}
         <Route path="*" element={<NotFound/>} />
       </Routes>
     </>

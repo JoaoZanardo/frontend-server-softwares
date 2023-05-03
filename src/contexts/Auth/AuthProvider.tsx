@@ -4,24 +4,26 @@ import Api from "../../hooks/useApi";
 import { LoginProps } from "../../types";
 import { UserDto } from "../../types/dto";
 import { Playlist } from "../../types/playlist";
-import { LocalStorage } from "../../helpers/local-storage";
+import { LocalStorage } from "../../helpers";
 import { env } from "../../config/env";
+import { User } from "../../types/user";
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const [playlist, setPlaylist] = useState<Playlist | null>(null);
+    const [user, setUser] = useState<User | null>(null);
     const [token, setToken] = useState<string>('');
 
     const localStorage = new LocalStorage();
     const { localStorageKeyItem } = env
     
     useEffect(() => {
-        console.log('AUTH CONTEXT');
         const validateToken = async () => {
             const dataStorage = localStorage.getItem(localStorageKeyItem);
             if (dataStorage) {
-                const { status } = await Api.getUser(JSON.parse(dataStorage).value);
+                const { data, status } = await Api.getUser(JSON.parse(dataStorage).value);
                 if (status !== 200) return logout();
                 setUserToken(localStorageKeyItem, JSON.parse(dataStorage).value);
+                setUser(data.user);
                 const timeout = setTimeout(() => {
                     logout();
                 }, 1000 * 60 * 60);
@@ -63,7 +65,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
 
    return (
-    <AuthContext.Provider value={{ token, playlist, setPlaylistInfo, login, signup, logout }}>
+    <AuthContext.Provider value={{ token, user, playlist, setPlaylistInfo, login, signup, logout }}>
         {children}
     </AuthContext.Provider>
    )
